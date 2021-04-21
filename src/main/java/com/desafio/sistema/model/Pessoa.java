@@ -1,14 +1,13 @@
 package com.desafio.sistema.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -17,20 +16,21 @@ public class Pessoa implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(nullable = false)
 	private String nome;
 	private char sexo;
 	private String email;
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date dataNascimento;
+	private Timestamp dataNascimento; //será obrigatório
 	private String naturalidade;
 	private String nacionalidade;
+	@Column(nullable = false, unique = true)
 	private String cpf;
 
 	public Pessoa() {
 
 	}
 
-	public Pessoa(Integer id, String nome, char sexo, String email, Date dataNascimento, String naturalidade,
+	public Pessoa(Integer id, String nome, char sexo, String email, Timestamp dataNascimento, String naturalidade,
 			String nacionalidade, String cpf) {
 		super();
 		this.id = id;
@@ -75,11 +75,11 @@ public class Pessoa implements Serializable {
 		this.email = email;
 	}
 
-	public Date getDataNascimento() {
+	public Timestamp getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(Timestamp dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
